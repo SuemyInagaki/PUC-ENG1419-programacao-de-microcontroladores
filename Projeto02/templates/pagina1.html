@@ -1,0 +1,18 @@
+<h2>Funções:</h2>
+<a href="/power">Liga/Desligar</a>
+<br>
+<a href="/desliga/5">Dormir em 5 segundos</a>
+<br>
+<a href="/aumentar">Volume+</a>
+<br>
+<a href="/diminuir">Volume-</a>
+<br>
+<a href="/mudo">Mudo</a>s
+
+<h2>Canais:</h2>
+{% for canal in dicionarios_de_canais %}
+	<a href="/canal/{{canal.codigo}}">{{canal.nome}}</a>
+	<br>
+{% endfor %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">

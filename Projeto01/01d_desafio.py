@@ -1,0 +1,106 @@
+# COMECE COPIANDO AQUI O SEU CÓDIGO DO APERFEIÇOAMENTO
+# DEPOIS FAÇA OS NOVOS RECURSOS
+
+from extra.aula import rodar
+
+@rodar
+def programa():
+  
+  global pos
+  pos = 0
+  
+  # importação de bibliotecas
+  from time import sleep
+  from mplayer import Player
+  from Adafruit_CharLCD import Adafruit_CharLCD
+  from gpiozero import LED, Button
+  import random
+ 
+  # definição de funções
+  def tocar_pausar():
+    player.pause()
+    if player.paused:
+      led1.blink()
+    else:
+      led1.on()
+  
+  def avancar(): 
+    player.speed = 2
+
+  def volta_ao_normal():
+    if player.speed == 2:
+      player.speed = 1
+    else:
+      player.pt_step(1)
+
+  
+  def faixa_anterior():
+    if(player.time_pos):
+      if(player.time_pos > 2):
+        player.time_pos=0
+      else:
+        player.pt_step(-1)
+  # criação de componentes
+  botao1 = Button(11)
+  botao2 = Button(12)
+  botao3 = Button(13)
+  
+  led1 = LED(21)
+  
+  lcd = Adafruit_CharLCD(2, 3, 4, 5, 6, 7, 16, 2)
+
+  player = Player()
+  
+  
+  text_file = open("playlist.txt", "r")
+  lista = []
+  for linha in text_file:
+    lista.append(linha)
+  
+  random.shuffle(lista)
+
+  nova_lista = open("nova_lista.txt", "w")
+  for musica in lista:
+    nova_lista.writelines(musica)
+  
+  nova_lista.close()
+  player.loadlist("nova_lista.txt")
+  
+  botao2.when_pressed = tocar_pausar
+  botao3.when_held = avancar
+  botao3.when_released = volta_ao_normal
+  botao1.when_pressed = faixa_anterior
+
+  
+
+  # loop infinito
+  while True:
+    lcd.clear()
+
+    metadados = player.metadata
+
+    if metadados != None:
+      if len(player.metadata["Title"])<=16:
+        lcd.message(player.metadata["Title"])
+      else:
+        titulo = player.metadata["Title"]
+        lcd.message(titulo[pos:pos + 16])
+        pos += 1
+        if(pos+16 > len(titulo)):
+          pos=0
+    
+    duracao_em_segundos = player.length
+    atual = player.time_pos
+
+    if atual and duracao_em_segundos:
+      seg = duracao_em_segundos
+      minuto = str(int(seg//60)).zfill(2)
+      seg = str(int(seg%60)).zfill(2)
+      duracao_total = minuto+':'+seg
+      seg = atual
+      minuto = str(int(seg//60)).zfill(2)
+      seg = str(int(seg%60)).zfill(2)
+      posi_atual = minuto+':'+seg +' de '
+      lcd.message('\n'+posi_atual+duracao_total)
+    
+    sleep(0.2)

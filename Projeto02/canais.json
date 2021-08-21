@@ -1,0 +1,26 @@
+[
+ {
+ "nome": "Globo",
+ "codigo": "0431"
+ },
+ {
+ "nome": "Band",
+ "codigo": "0731"
+ },
+ {
+ "nome": "TV Brasil",
+ "codigo": "0201"
+ },
+ {
+ "nome": "CNT",
+ "codigo": "0901"
+ },
+ {
+ "nome": "SBT",
+ "codigo": "1101"
+ },
+ {
+ "nome": "Record",
+ "codigo": "1301"
+ }
+]
