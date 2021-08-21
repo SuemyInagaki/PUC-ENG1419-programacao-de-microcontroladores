@@ -18,11 +18,11 @@ def programa():
   
   # parâmetros iniciais do Telegram
   # MARCOS
-  #chave = "1742854251:AAEIBHi-IwYt03L0_l6hQ7wGhpbUguiji-A"
+  #chave = ""
   #id_da_conversa = "1257553349"
   
   #SUEMY
-  chave = "1794507245:AAGilc5zBwf8zdtzBkrxUc5B3ZzuI7XjQao"
+  chave = ""
   id_da_conversa = "744769004"
   endereco_base = "https://api.telegram.org/bot" + chave
   
